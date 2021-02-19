@@ -221,6 +221,32 @@ namespace Project_ASP.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: Admin/Pages/ReorderPages
+        [HttpPost]
+        public void ReorderPages(int[] id)
+        {
+            using (Db db = new Db())
+            {
+                // Set initial count
+                int count = 1;
+
+                // declare PageDTO
+                PageDTO dto;
+
+                // Set sorting for each page
+                foreach (var pageId in id)
+                {
+                    dto = db.Pages.Find(pageId);
+                    dto.Sorting = count;
+
+                    db.SaveChanges();
+
+                    count++;
+                }
+            }
+
+        }
+
     }
 }
  
