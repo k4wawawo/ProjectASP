@@ -202,6 +202,25 @@ namespace Project_ASP.Areas.Admin.Controllers
             return View(model);
         }
 
+        // GET: Admin/Pages/DeletePage/id
+        public ActionResult DeletePage(int id)
+        {
+            using (Db db = new Db())
+            {
+                // Get the page
+                PageDTO dto = db.Pages.Find(id);
+
+                // Remove the page
+                db.Pages.Remove(dto);
+
+                // Save
+                db.SaveChanges();
+            }
+
+            // Redirect
+            return RedirectToAction("Index");
+        }
+
     }
 }
  
