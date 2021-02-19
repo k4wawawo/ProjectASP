@@ -11,7 +11,6 @@ namespace Project_ASP.Models.ViewModel.Pages
     {
         public PageVM()
         {
-
         }
 
         public PageVM(PageDTO row)
@@ -31,7 +30,7 @@ namespace Project_ASP.Models.ViewModel.Pages
         [Required]
         [StringLength(int.MaxValue, MinimumLength = 3)]
         public string Body { get; set; }
-        public string Sorting { get; set; }
+        public int Sorting { get; set; }
         public bool HasSidebar { get; set; }
     }
 }
