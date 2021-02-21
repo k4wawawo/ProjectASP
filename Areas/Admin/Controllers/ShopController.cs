@@ -44,7 +44,9 @@ namespace Project_ASP.Areas.Admin.Controllers
                     return "titletaken";
 
                 // Init DTO
+#pragma warning disable IDE0017 // Simplify object initialization
                 CategoryDTO dto = new CategoryDTO();
+#pragma warning restore IDE0017 // Simplify object initialization
 
                 // Add to DTO
                 dto.Name = catName;
