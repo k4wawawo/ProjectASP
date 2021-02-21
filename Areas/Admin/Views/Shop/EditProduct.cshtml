@@ -93,12 +93,13 @@
     <h3>There are no gallery images for this product.</h3>
 }
 
-<form action="/admin/shop/SaveGalleryImages" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
-    <div class="fallback">
-        <input type="file" name="file" multiple />
-        <input type="submit" value="Upload" />
-    </div>
-</form>
+    <form action="/admin/shop/SaveGalleryImages" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+        @Html.Hidden("id", Model.Id) 
+        <div class="fallback">
+            <input type="file" name="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
 
 <br /><br />
 
@@ -140,6 +141,27 @@
             $("#ImageUpload").change(function () {
                 readURL(this);
             });
+
+            ///////////////////////////////
+
+    /*
+    * Dropzone js
+    */
+
+    Dropzone.options.dropzoneForm = {
+        acceptedFiles: "image/*",
+        init: function() {
+            this.on("complete", function (file) {
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    location.reload();
+                }
+            });
+
+            this.on("sending", function (file, xhr, formData) {
+                formData.append("id", @Model.Id);
+            });
+        }
+    };
 
     </script>
 
