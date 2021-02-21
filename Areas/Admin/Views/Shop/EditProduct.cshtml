@@ -160,8 +160,32 @@
             this.on("sending", function (file, xhr, formData) {
                 formData.append("id", @Model.Id);
             });
-        }
-    };
+           }
+            };
+
+            ///////////////
+
+    /*
+    * Dropzone js
+    */
+
+    $("a.deleteimage").click(function (e) {
+        e.preventDefault();
+
+        if (!confirm("Confirm deletion")) return false;
+
+        var $this = $(this);
+        var url = "/admin/shop/DeleteImage";
+        var imageName = $this.data("name");
+
+        $.post(url, { id: @Model.Id, imageName: imageName }, function(data) {
+            $this.parent().fadeOut("fast");
+             });
+
+        });
+     });
+
+
 
     </script>
 
