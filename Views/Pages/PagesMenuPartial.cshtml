@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Project_ASP.Models.ViewModel.Pages.PageVM>
+
+
+@foreach (var item in Model)
+{
+<li class="active"><a href="/@item.Slug">@item.Title</a></li>
+}
