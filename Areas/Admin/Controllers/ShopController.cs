@@ -19,7 +19,11 @@ namespace Project_ASP.Areas.Admin.Controllers
             using (Db db = new Db())
             {
                 // Init the list
-                categoryVMList = db.Categories.ToArray().OrderBy(x => x.Sorting).Select(x => new CategoryVM(x)).ToList();
+                categoryVMList = db.Categories
+                                .ToArray()
+                                .OrderBy(x => x.Sorting)
+                                .Select(x => new CategoryVM(x))
+                                .ToList();
             }
 
             // Return view with list
@@ -57,6 +61,51 @@ namespace Project_ASP.Areas.Admin.Controllers
 
             // Return id
             return id;
+        }
+
+        // POST: Admin/Shop/ReorderCategories
+        [HttpPost]
+        public void ReorderCategories(int[] id)
+        {
+            using (Db db = new Db())
+            {
+                // Set initial count
+                int count = 1;
+
+                // Declare CategoryDTO
+                CategoryDTO dto;
+
+                // Set sorting for each category
+                foreach (var catId in id)
+                {
+                    dto = db.Categories.Find(catId);
+                    dto.Sorting = count;
+
+                    db.SaveChanges();
+
+                    count++;
+                }
+            }
+
+        }
+
+        // GET: Admin/Shop/DeleteCategory/id
+        public ActionResult DeleteCategory(int id)
+        {
+            using (Db db = new Db())
+            {
+                // Get the category
+                CategoryDTO dto = db.Categories.Find(id);
+
+                // Remove the category
+                db.Categories.Remove(dto);
+
+                // Save
+                db.SaveChanges();
+            }
+
+            // Redirect
+            return RedirectToAction("Categories");
         }
     }
 }
