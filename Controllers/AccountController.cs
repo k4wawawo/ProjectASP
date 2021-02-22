@@ -137,6 +137,65 @@ namespace Project_ASP.Controllers
             // Redirect
             return Redirect("~/account/login");
         }
+
+        // GET: /account/Logout
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("~/account/login");
+        }
+
+        [Authorize]
+        public ActionResult UserNavPartial()
+        {
+            // Get username
+            string username = User.Identity.Name;
+
+            // Declare model
+            UserNavPartialVM model;
+
+            using (Db db = new Db())
+            {
+                // Get the user
+                UserDTO dto = db.Users.FirstOrDefault(x => x.Username == username);
+
+                // Build the model
+                model = new UserNavPartialVM()
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName
+                };
+            }
+
+            // Return partial view with model
+            return PartialView(model);
+        }
+
+        // GET: /account/user-profile
+        [HttpGet]
+        [ActionName("user-profile")]
+        [Authorize]
+        public ActionResult UserProfile()
+        {
+            // Get username
+            string username = User.Identity.Name;
+
+            // Declare model
+            UserProfileVM model;
+
+            using (Db db = new Db())
+            {
+                // Get user
+                UserDTO dto = db.Users.FirstOrDefault(x => x.Username == username);
+
+                // Build model
+                model = new UserProfileVM(dto);
+            }
+
+            // Return view with model
+            return View("UserProfile", model);
+        }
     }
 }
 
