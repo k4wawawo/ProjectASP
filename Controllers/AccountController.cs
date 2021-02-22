@@ -12,6 +12,21 @@ namespace Project_ASP.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            return Redirect("~/account/login");
+        }
+
+        // GET: /account/login
+        [HttpGet]
+        public ActionResult Login()
+        {
+            // Confirm user is not logged in
+
+            string username = User.Identity.Name;
+
+            if (!string.IsNullOrEmpty(username))
+                return RedirectToAction("user-profile");
+
+            // Return view
             return View();
         }
 
