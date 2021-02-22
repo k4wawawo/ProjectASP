@@ -57,6 +57,7 @@ namespace Project_ASP.Controllers
         }
 
         // GET: /shop/product-details/name
+
         [ActionName("product-details")]
         public ActionResult ProductDetails(string name)
         {
