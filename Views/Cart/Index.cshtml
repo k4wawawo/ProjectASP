@@ -75,6 +75,8 @@ else
         </tr>
 
     </table>
+
+    <a href="#" class="placeorder btn btn-primary pull-right">Payment</a>
 }
 
 @section Scripts {
@@ -161,6 +163,27 @@ else
                     location.reload();
                 });
             });
+
+            /*
+             * Place order
+              */
+
+            $("a.placeorder").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+
+                var url = "/cart/PlaceOrder";
+
+                $(".ajaxbg").show();
+
+                $.post(url, {}, function (data) {
+                    $(".ajaxbg span").text("Thank you. You will now be redirected in few moment.");
+                    
+                });
+            });
+
+            ////////////////////////
         });
 
     </script>

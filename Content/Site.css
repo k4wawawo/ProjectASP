@@ -43,3 +43,8 @@ span.ajaxmsg {
 .ib {
     display: inline-block !important;
 }
+
+ul.adminarea {
+    position: relative;
+    top: 15px;
+}

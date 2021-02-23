@@ -19,4 +19,3 @@ namespace Project_ASP.Models.Data
         public virtual UserDTO Users { get; set; }
     }
 }
-}
